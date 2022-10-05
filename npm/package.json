@@ -1,19 +1,20 @@
 {
   "name": "npm",
   "version": "1.0.0",
-  "description": "",
   "main": "learn-npm.js",
   "dependencies": {
     "chalk": "^5.0.1",
-    "validator": "^13.7.0"
+    "validator": "^13.7.0",
+    "yargs": "^17.6.0"
   },
   "scripts": {
-    "start": "nodemon learn-npm.mjs",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Apriyanto",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^2.0.20"
-  }
+  },
+  "description": ""
 }

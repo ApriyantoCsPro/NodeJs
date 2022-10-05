@@ -1,46 +1,58 @@
-const fs = require('fs')
-const readline = require('readline')
+// const yargs = require('yargs')
 
-// // menuliskan  string ke file (synchronous)
-// try{
-//  fs.writeFileSync('data/test.txt', 'Menulis string menggunakan nodeJs')
-// }catch(e){ console.log(e) }
+const {tulisPertanyaan, simpanContact, listContact, detailContact, deleteContact} = require('./contacts')
 
-// // menuliskan  string ke file (Asynchronous)
-// fs.writeFile('data/Atest.txt', 'Menulis string menggunakan nodeJs', (e) => {
-//     console.log(e)
+
+const main = async () => {
+  const nama = await tulisPertanyaan('Masukan nama anda : ')
+  const email = await tulisPertanyaan('Masukan email anda : ')
+  const noHp = await tulisPertanyaan('Masukan noHp anda : ')
+
+  simpanContact(nama, email, noHp)
+}
+
+const findNama = async () => {
+  const nama = await tulisPertanyaan('Masukan nama : ')
+  detailContact(nama)
+}
+
+const findDeleteNama = async () => {
+  const nama = await tulisPertanyaan('Masukan nama : ')
+  deleteContact(nama)
+}
+
+const command = process.argv[2]
+if(command === 'add') {
+  main()
+} else if(command === 'list') {
+  listContact()
+
+  // yargs.command({
+  //   command: 'list',
+  //   describe: 'Menampilkan semua nama & noHp contact',
+  //   handler() {
+  //     listContact()
+  //   }
+  // })
+} else if(command === 'detail') {
+  findNama()
+} else if( command === 'delete') {
+  findDeleteNama()
+}
+
+
+
+
+// rl.question('Masukan nama anda : ', nama => {
+//     rl.question('Masukan nomor anda : ', noHp => {
+//         const contact = {nama, noHp}
+//         const file = fs.readFileSync('data/contacts.json', 'utf-8')
+//         const contacts = JSON.parse(file)
+//         contacts.push(contact)
+
+//         fs.writeFileSync('data/contacts.json', JSON.stringify(contacts))
+//         rl.close()
+//         console.log(`Terimakasih ${nama} telah memasuki data`)
+//     })
 // })
-
-//Membaca isi file (synchronous)
-// const data = fs.readFileSync('data/test.txt', 'utf-8')
-// console.log(data)
-
-// //Membaca isi file (Asynchronous)
-// fs.readFile('data/Atest.txt','utf-8', (err, data) => {
-//     if(err) throw err;
-//     console.log(data) 
-// })
-
-
-//READLINE
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-})
-
-
-
-
-rl.question('Masukan nama anda : ', nama => {
-    rl.question('Masukan nomor anda : ', noHp => {
-        const contact = {nama, noHp}
-        const file = fs.readFileSync('data/contacts.json', 'utf-8')
-        const contacts = JSON.parse(file)
-        contacts.push(contact)
-
-        fs.writeFileSync('data/contacts.json', JSON.stringify(contacts))
-        rl.close()
-        console.log(`Terimakasih ${nama} telah memasuki data`)
-    })
-})
 
